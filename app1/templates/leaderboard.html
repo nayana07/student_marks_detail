@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+
+<div>
+		
+  <form class="form-inline" method="get" action="/search">
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+  </form>
+</div>
+	<div>
+		<table class="table table-bordered">
+
+	<thead>
+		<tr>
+			<th>sr</th>
+			<th>Roll no</th>
+			<th>Name</th>
+			<th>Maths</th>
+			<th>Physics </th>
+			<th>Chemistry</th>
+			<th>Total</th>
+			<th>Percentage</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for i in Marks %}
+		<tr>
+			<td>{{i.sr}}</td>
+			<td>{{i.Roll_no}}</td>
+			<td>{{ i.Name}}</td>
+			<td>{{i.Math_Marks}}</td>
+			<td>{{i.Physics_Marks}}</td>
+			<td>{{i.Chemistry_Marks}}</td>
+			<td>{{i.Total}}</td>
+			<td>{{i.Per}}</td>
+
+		</tr>
+		{% endfor %}
+	</tbody>
+	
+	
+</table>
+	</div>
+	
+
+</div>
+
+{% endblock %}
