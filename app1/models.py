@@ -2,7 +2,7 @@ from django.db import models
 from django import views
 
 class marks(models.Model):
-	Roll_no = models.IntegerField()
+	Roll_no = models.IntegerField(unique=True)
 	Name=models.CharField(max_length=30)
 	Math_Marks = models.IntegerField()
 	Physics_Marks = models.IntegerField()

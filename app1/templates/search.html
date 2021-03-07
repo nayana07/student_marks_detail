@@ -24,13 +24,14 @@
 	<tbody>
 		{% for i in data %}
 		<tr>
-			<td>{{i.sr}}</td>
+			<td>{{i.id}}</td>
 			<td>{{i.Roll_no}}</td>
 			<td>{{ i.Name}}</td>
 			<td>{{i.Math_Marks}}</td>
 			<td>{{i.Physics_Marks}}</td>
 			<td>{{i.Chemistry_Marks}}</td>
-			<td>{{result}}</td>
+			<td>{{i.Total}}</td>
+			<td>{{i.Per}}</td>
 
 		</tr>
 		{% endfor %}

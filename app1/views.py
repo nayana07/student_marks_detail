@@ -8,21 +8,21 @@ def home(request):
 	return render(request,'home.html')
 
 def Marks(request):
+	thank = False
 	form = marksform()
-	print(form)
-	print(request.method)
 	if request.method == "POST":
 		form = marksform(request.POST)
-		print(form)
 		if form.is_valid():
 			form.save()
+			thank = True
 			print("successfully")
-	context={'form':form}
+		else:
+			print(form.errors)	
+	context={'form':form, 'thank':thank}
 	return render(request,'marks.html',context)
 
 def leaderboard(request):
 	Marks=marks.objects.all()
-	print(Marks)
 	return render(request,'leaderboard.html',{'Marks': Marks})
 
 def search(request):
