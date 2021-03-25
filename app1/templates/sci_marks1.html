@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="border border-dark px-5 py-5">
+		<form action="{% url 'sci_marks' %}" method="post" novalidate>{% csrf_token %}
+			<fieldset>
+			<div class="form-group">
+  			    <label>Roll No</label>
+			    {{form.Roll_no}}
+			    {% if form.errors %}
+                    {% for error in form.Roll_no.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+			</div>
+			<div class="form-group">
+			<label>Name</label>
+			{{form.Name}}
+			</div>
+			<div class="form-group">
+			<label>Physics Marks</label>
+			{{form.Physics_Marks}}
+			</div>
+			<div class="form-group">
+			<label>Chemistry Marks</label>
+			{{form.Chemistry_Marks}}
+			</div>
+			<div class="form-group">
+			<label>English Marks</label>
+			{{form.English_Marks}}
+			</div>
+            <div class="form-group">
+			<label>Hindi Marks</label>
+			{{form.Hindi_Marks}}
+			</div>
+
+			<div class="form-group">
+                <span style='margin-right: 12.00em' class = "label label-default">Op_subject: </span>
+                {% for radio in form.op_subject %}
+                    {{ radio.tag }} 
+                    <label style='margin-right: 2.25em'>{{ radio.choice_label }}</label>
+                {% endfor %}
+            </div>
+			
+            <fieldset class="form-group" id="Maths-Bio" style="display: none">
+                        <div class="form-group">
+			                <label>Mathematics Marks</label>
+			                {{form.Mathematics_Marks}}
+			            </div>
+                        <div class="form-group">
+			                <label>Biology Marks</label>
+			                {{form.Biology_Marks}}
+			            </div>
+            </fieldset>
+            <fieldset class="form-group" id="Maths-Comp" style="display: none">
+                <div class="row">
+                    <legend class="col-md-3 col-form-label pt-0">Maths and Computer Marks</legend>
+                    <div class="col-md-9">
+                        <div class="form-group">
+			                <label>Mathematics Marks</label>
+			                {{form.Mathematics_Marks}}
+			            </div>
+                        <div class="form-group">
+			                <label>Computer Marks</label>
+			                {{form.Computer_Marks}}
+			            </div>
+                    </div>
+                </div>
+            </fieldset>
+			<fieldset class="form-group" id="Bio-Comp" style="display: none">
+                <div class="row">
+                    <legend class="col-md-3 col-form-label pt-0">Maths and Computer Marks</legend>
+                    <div class="col-md-9">
+                        <div class="form-group">
+			                <label>Biology Marks</label>
+			                {{form.Biology_Marks}}
+			            </div>
+                        <div class="form-group">
+			                <label>Computer Marks</label>
+			                {{form.Computer_Marks}}
+			            </div>
+                    </div>
+                </div>
+            </fieldset>
+			<div class="form-group">
+			<label>Total</label>
+			{{form.Total}}
+			</div>
+			<div class="form-group">
+			<label>Percentage</label>
+			{{form.Per}}
+			</div>
+			<div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+{% endblock %}
+{% block js%}
+	<script>
+		console.log('working');
+        console.log('clicked');
+		$('.form-group').on('input','.prc',function(){
+			var totalSum = 0;
+            $('.form-group .prc').each(function(){
+				var inputVal = $(this).val();
+				if($.isNumeric(inputVal)){
+					totalSum += parseFloat(inputVal);
+				}
+			});
+			$('#Total').val(totalSum);
+			$('#Per').val(totalSum/600*100);
+		});
+
+function ShowHideDiv() {
+        var MathsBio = document.getElementById("id_op_subject_0");
+		console.log(MathsBio.value)
+        var MathsComp = document.getElementById("id_op_subject_1");   
+		var BioComp = document.getElementById("id_op_subject_2");     
+     
+        var MBtrue = document.getElementById("Maths-Bio");
+		console.log(MBtrue.style.display)
+        var MCtrue = document.getElementById("Maths-Comp");
+		var BCtrue = document.getElementById("Bio-Comp");
+        
+        MBtrue.style.display = MathsBio.checked ? "block" : "none";
+        MCtrue.style.display = MathsComp.checked ? "block" : "none";
+		BCtrue.style.display = BioComp.checked ? "block" : "none";
+    }		
+
+
+{% if thank %}
+alert('Thanks for Reservation. We will get back to you soon!');
+document.location = "";
+{% endif %}
+	</script>
+
+{% endblock %} 
+
+</body>
+
+</html>

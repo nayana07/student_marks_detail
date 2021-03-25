@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="border border-dark px-5 py-5">
+		<form action="{% url 'art_marks' %}" method="post" novalidate>{% csrf_token %}
+			<fieldset>
+			<div class="form-group">
+  			    <label>Roll No</label>
+			    {{form.Roll_no}}
+			    {% if form.errors %}
+                    {% for error in form.Roll_no.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+			</div>
+			<div class="form-group">
+			<label>Name</label>
+			{{form.Name}}
+			</div>
+			<div class="form-group">
+			<label>History Marks</label>
+			{{form.History_Marks}}
+			</div>
+			<div class="form-group">
+			<label>Geography_Marks</label>
+			{{form.Geography_Marks}}
+			</div>
+			<div class="form-group">
+			<label>Political Science Marks</label>
+			{{form.Political_science_Marks}}
+			</div>
+			<div class="form-group">
+			<label>Sociology Marks</label>
+			{{form.Sociology_Marks}}
+			</div>
+			<div class="container">
+			    <div class="form-check form-check-inline">
+				    <label class="form-check-label">
+					    <input class="checks" type="checkbox" name="" id="" value="Eng"> English
+					    <input class="checks" type="checkbox" name="" id="" value="Hindi"> Hindi
+					    <input class="checks" type="checkbox" name="" id="" value="Sans"> Sanskrit
+				    </label>
+			    </div>
+			    <a href="#" onclick="getValue()">Select</a>
+            </div>
+			<fieldset class="form-group" id="Eng_marks" style="display: none">
+                <div class="form-group">
+			        <label>English_Marks</label>
+			        {{form.English_Marks}}
+			    </div>
+            </fieldset>
+            <fieldset class="form-group" id="Hindi_marks" style="display: none">
+                <div class="form-group">
+			        <label>Hindi_Marks</label>
+			        {{form.Hindi_Marks}}
+			    </div>
+            </fieldset>
+			<fieldset class="form-group" id="Sans_marks" style="display: none">
+                <div class="form-group">
+			        <label>Sanskrit_Markss</label>
+			        {{form.Sanskrit_Marks}}
+			    </div>
+            </fieldset>
+			<div class="form-group">
+			<label>Total</label>
+			{{form.Total}}
+			</div>
+			<div class="form-group">
+			<label>Percentage</label>
+			{{form.Per}}
+			</div>
+			<div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+{% endblock %}
+{% block js%}
+	<script>
+		console.log('working');
+        console.log('clicked');
+		$('.form-group').on('input','.prc',function(){
+			var totalSum = 0;
+			var count = 0;
+            $('.form-group .prc').each(function(){
+				var inputVal = $(this).val();
+				if($.isNumeric(inputVal)){
+					count = count + 1;
+					totalSum += parseFloat(inputVal);
+				}
+			});
+			count = count * 100;
+			console.log(count)
+			$('#Total').val(totalSum);
+			$('#Per').val(totalSum/count*100);
+		});
+
+function getValue() {
+    var checks = document.getElementsByClassName('checks');
+    var str = '';
+	var selected = new Array();
+	var Etrue = document.getElementById("Eng_marks");
+	console.log(Etrue.style.display)
+    var Htrue = document.getElementById("Hindi_marks");
+	var Strue = document.getElementById("Sans_marks");
+    for ( i = 0; i < 3; i++) {
+        if ( checks[i].checked === true ) {
+            str += checks[i].value + " ";
+			selected.push(checks[i].value);
+        }
+    }
+	console.log(str)
+	if (selected.length > 0) {
+            console.log("Selected values: " + selected);
+        }
+	for ( i = 0; i < 3; i++) {
+		if ( selected[i] == "Eng" ) {
+			Etrue.style.display = "block";
+		}
+		else if (selected[i] == "Hindi"){
+			Htrue.style.display = "block";
+		}
+		else if (selected[i] == "Sans"){
+			Strue.style.display = "block";
+		}
+	}
+}		
+
+
+{% if thank %}
+alert('Thanks for Reservation. We will get back to you soon!');
+document.location = "";
+{% endif %}
+	</script>
+
+{% endblock %} 
+
+</body>
+
+</html>

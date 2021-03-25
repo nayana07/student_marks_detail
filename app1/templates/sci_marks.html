@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div class="border border-dark px-5 py-5">
+		<form action="{% url 'sci_marks' %}" method="post" novalidate>{% csrf_token %}
+			<fieldset>
+			<div class="form-group">
+  			    <label>Roll No</label>
+			    {{form.Roll_no}}
+			    {% if form.errors %}
+                    {% for error in form.Roll_no.errors %}
+                        <p class="text-danger">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+			</div>
+			<div class="form-group">
+			<label>Name</label>
+			{{form.Name}}
+			</div>
+			<div class="form-group">
+			<label>Physics Marks</label>
+			{{form.Physics_Marks}}
+			</div>
+			<div class="form-group">
+			<label>Chemistry Marks</label>
+			{{form.Chemistry_Marks}}
+			</div>
+			<div class="form-group">
+			<label>English Marks</label>
+			{{form.English_Marks}}
+			</div>
+            <div class="form-group">
+			<label>Hindi Marks</label>
+			{{form.Hindi_Marks}}
+			</div>
+			<div class="container">
+			    <div class="form-check form-check-inline">
+				    <label class="form-check-label">
+					    <input class="checks" type="checkbox" name="" id="" value="Maths"> Mathematics
+					    <input class="checks" type="checkbox" name="" id="" value="Bio"> Biology
+					    <input class="checks" type="checkbox" name="" id="" value="Comp"> Computer
+				    </label>
+			    </div>
+			    <a href="#" onclick="getValue()">Select</a>
+            </div>
+			<fieldset class="form-group" id="Maths_marks" style="display: none">
+                        <div class="form-group">
+			                <label>Mathematics Marks</label>
+			                {{form.Mathematics_Marks}}
+			            </div>
+            </fieldset>
+            <fieldset class="form-group" id="Comp_marks" style="display: none">
+                 <div class="form-group">
+			                <label>Computer Marks</label>
+			                {{form.Computer_Marks}}
+			            </div>
+            </fieldset>
+			<fieldset class="form-group" id="Bio_marks" style="display: none">
+                        <div class="form-group">
+			                <label>Biology Marks</label>
+			                {{form.Biology_Marks}}
+			            </div>
+            </fieldset>
+			<div class="form-group">
+			<label>Total</label>
+			{{form.Total}}
+			</div>
+			<div class="form-group">
+			<label>Percentage</label>
+			{{form.Per}}
+			</div>
+			<div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+{% endblock %}
+{% block js%}
+	<script>
+		console.log('working');
+        console.log('clicked');
+		$('.form-group').on('input','.prc',function(){
+			var totalSum = 0;
+			count = 0;
+            $('.form-group .prc').each(function(){
+				var inputVal = $(this).val();
+				if($.isNumeric(inputVal)){
+					totalSum += parseFloat(inputVal);
+					count = count + 1;
+				}
+			});
+			count = count*100;
+			console.log(count)
+			$('#Total').val(totalSum);
+			$('#Per').val(totalSum/count*100);
+		});
+
+function getValue() {
+    var checks = document.getElementsByClassName('checks');
+    var str = '';
+	var selected = new Array();
+	var Mtrue = document.getElementById("Maths_marks");
+	console.log(Mtrue.style.display)
+    var Ctrue = document.getElementById("Comp_marks");
+	var Btrue = document.getElementById("Bio_marks");
+    for ( i = 0; i < 3; i++) {
+        if ( checks[i].checked === true ) {
+            str += checks[i].value + " ";
+			selected.push(checks[i].value);
+        }
+    }
+	console.log(str)
+	if (selected.length > 0) {
+            console.log("Selected values: " + selected);
+        }
+	for ( i = 0; i < 3; i++) {
+		if ( selected[i] == "Maths" ) {
+			Mtrue.style.display = "block";
+		}
+		else if (selected[i] == "Bio"){
+			Btrue.style.display = "block";
+		}
+		else if (selected[i] == "Comp"){
+			Ctrue.style.display = "block";
+		}
+	}
+}
+
+{% if thank %}
+alert('Thanks for Reservation. We will get back to you soon!');
+document.location = "";
+{% endif %}
+</script>
+
+{% endblock %} 
+
+</body>
+
+</html>

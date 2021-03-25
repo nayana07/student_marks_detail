@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+	<div>
+		<table class="table table-bordered">
+	        <thead>
+		        <tr>
+			        <th>Roll no</th>
+			<th>Name</th>
+			<th>History</th>
+			<th>Geography</th>
+            <th>Political science</th>
+            <th>Sociology</th>
+            <th>Sanskrit</th>
+            <th>English</th>
+            <th>Hindi</th>
+			<th>Total</th>
+			<th>Percentage</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		{% for i in data %}
+		<tr>
+			<td>{{i.Roll_no}}</td>
+			<td>{{i.Name}}</td>
+			<td>{{i.History_Marks}}</td>
+			<td>{{i.Geography_Marks}}</td>
+            <td>{{i.Political_science_Marks}}</td>
+            <td>{{i.Sociology_Marks}}</td>
+            <td>{{i.Sanskrit_Marks}}</td>
+            <td>{{i.English_Marks}}</td>
+            <td>{{i.Hindi_Marks}}</td>
+			<td>{{i.Total}}</td>
+			<td>{{i.Per}}</td>
+                    </tr>
+		        {% endfor %}
+	        </tbody>
+        </table>
+	</div>
+</div>
+{% endblock %}

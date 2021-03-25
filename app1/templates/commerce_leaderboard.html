@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <div>
+    <form class="form-inline" method="POST" action="{% url 'commerce_search' %}" novalidate>{% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" placeholder="Search by Student Name" aria-label="Search" name="query" id="query">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+  <div>
+	<table class="table table-bordered">
+      <thead>
+		<tr>
+			<th>Roll no</th>
+			<th>Name</th>
+			<th>Accountancy</th>
+			<th>Business Studies</th>
+            <th>Mathematics</th>
+            <th>English</th>
+            <th>Physical Education</th>
+			<th>Total</th>
+			<th>Percentage</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		{% for i in Marks %}
+		<tr>
+			<td>{{i.Roll_no}}</td>
+			<td>{{i.Name}}</td>
+			<td>{{i.Accountancy_Marks}}</td>
+			<td>{{i.Business_Studies_Marks}}</td>
+            <td>{{i.Mathematics_Marks}}</td>
+            <td>{{i.English_Marks}}</td>
+            <td>{{i.Physical_Education_Marks}}</td>
+			<td>{{i.Total}}</td>
+			<td>{{i.Per}}</td>
+
+		</tr>
+		{% endfor %}
+	  </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

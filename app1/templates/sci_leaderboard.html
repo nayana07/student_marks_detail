@@ -2,8 +2,8 @@
 {% block content %}
 <div class="container">
   <div>
-    <form class="form-inline" method="get" action="/search">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query" id="query">
+    <form class="form-inline" method="POST" action="{% url 'sci_search' %}" novalidate>{% csrf_token %}
+      <input class="form-control mr-sm-2" type="search" placeholder="Search by Student Name" aria-label="Search" name="query" id="query">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
@@ -11,12 +11,15 @@
 	<table class="table table-bordered">
       <thead>
 		<tr>
-			<th>sr</th>
 			<th>Roll no</th>
 			<th>Name</th>
-			<th>Maths</th>
 			<th>Physics </th>
 			<th>Chemistry</th>
+            <th>Mathematics</th>
+            <th>Biology</th>
+            <th>Computer</th>
+            <th>English</th>
+            <th>Hindi</th>
 			<th>Total</th>
 			<th>Percentage</th>
 		</tr>
@@ -24,12 +27,15 @@
 	  <tbody>
 		{% for i in Marks %}
 		<tr>
-			<td>{{i.sr}}</td>
 			<td>{{i.Roll_no}}</td>
-			<td>{{ i.Name}}</td>
-			<td>{{i.Math_Marks}}</td>
+			<td>{{i.Name}}</td>
 			<td>{{i.Physics_Marks}}</td>
 			<td>{{i.Chemistry_Marks}}</td>
+            <td>{{i.Mathematics_Marks}}</td>
+            <td>{{i.Biology_Marks}}</td>
+            <td>{{i.Computer_Marks}}</td>
+            <td>{{i.English_Marks}}</td>
+            <td>{{i.Hindi_Marks}}</td>
 			<td>{{i.Total}}</td>
 			<td>{{i.Per}}</td>
 
